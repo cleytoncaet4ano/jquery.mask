@@ -7,6 +7,7 @@ O arquivo jquery.mask.js contém a função mask, que é responsável por adicio
 Para utilizar o plugin, basta incluir o arquivo jquery.mask.js em seu projeto e chamar a função mask em um seletor jQuery que identifique o campo de texto que deseja-se aplicar a máscara. Por exemplo:
 
 `$('#inputCpf').mask('000.000.000-00');`
+
 `$('#inputCep').mask('00000-00');`
 
 Isso aplicará a máscara de CPF ao campo de texto com o ID inputCpf.
