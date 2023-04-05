@@ -1,42 +1,30 @@
-# Máscara de entrada para campos de texto com jQuery
-Este é um plugin jQuery que adiciona uma máscara de formatação para campos de texto HTML. O plugin permite que o valor inserido pelo usuário seja formatado de acordo com um determinado formato especificado.
+# Plugin JavaScript de Máscara de Entrada
 
-O arquivo jquery.mask.js contém a função mask, que é responsável por adicionar a máscara de formatação ao campo de texto. A função recebe um parâmetro format, que é uma string que representa o formato da máscara.
+Este é um plugin jQuery para criar máscaras de entrada em campos de formulário de acordo com um formato especificado.
 
-## Como usar
-Para utilizar o plugin, basta incluir o arquivo jquery.mask.js em seu projeto e chamar a função mask em um seletor jQuery que identifique o campo de texto que deseja-se aplicar a máscara. Por exemplo:
+## Instalação
 
-```javascript
-$('#inputCep').mask('00000-000');
-$('#inputCpf').mask('000.000.000-00');
+Para usar este plugin, basta incluir o arquivo `jquery.mask.js` em sua página HTML após o jQuery:
+
+```html
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="jquery.mask.js"></script>
 ```
 
-Máscara dinâmica para telefones com e sem nono dígito
+## Uso
+
+O plugin adiciona um método `mask` à API jQuery que pode ser chamado em um elemento de formulário para adicionar uma máscara de entrada. O método aceita um argumento que pode ser uma string de formato ou uma função que retorna uma string de formato com base no valor atual do campo.
 
 ```javascript
-$('input#telefone').mask(function (value) {
-  if (value.replace(/\D/g, '').length === 11) {]
-    // Se o número tem 11 dígitos, formata com nono dígito
-    return '(00) 00000-0000';
-  } else {
-    // Senão, formata sem nono dígito
-    return '(00) 0000-0000';
-  }
+$('input[type="tel"]').mask('(00) 0000-0000');
+```
+```javascript
+$('input[type="text"]').mask(function (value) {
+    return value.length <= 11 ? '000.000.000-00' : '00.000.000/0000-00';
 });
 ```
 
 ## Como funciona
-A função mask adiciona um ouvinte de evento de entrada (input) no elemento selecionado pelo seletor jQuery. A cada vez que o evento é acionado, a função é executada e o valor do elemento é formatado de acordo com o formato especificado.
+O plugin adiciona um manipulador de eventos `input` ao elemento de formulário que chama uma função sempre que o valor do campo é alterado pelo usuário. A função remove todos os caracteres não numéricos do valor do campo e usa o formato especificado para criar uma nova string de valor formatada.
 
-A função itera sobre cada caractere do formato e verifica se é um zero ('0'). Se for, o próximo caractere numérico do valor é adicionado à string formatada. Caso contrário, o caractere do formato é adicionado diretamente à string formatada.
-
-O resultado é que o valor do elemento é formatado de acordo com o formato especificado, adicionando zeros e caracteres de separação conforme necessário.
-
-## Exemplo de uso
-No arquivo index.html deste repositório, há um exemplo de uso do plugin. O código HTML contém um campo de texto para inserir um CEP, que é formatado automaticamente após o usuário inserir os cinco primeiros dígitos:
-
-```html
-<input type="text" id="inputCpf" name="cpf" placeholder="000.000.000-00">
-```
-
-Para testar o exemplo, basta clonar este repositório e abrir o arquivo index.html em seu navegador.
+O formato especificado é uma string que contém caracteres de espaço reservados para cada caractere numérico no valor do campo. O caractere `0` é um espaço reservado para um dígito numérico obrigatório, enquanto outros caracteres são adicionados ao valor formatado sem considerar o valor do campo.
