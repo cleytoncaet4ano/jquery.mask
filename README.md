@@ -16,10 +16,17 @@ Para usar este plugin, basta incluir o arquivo `jquery.mask.js` em sua página H
 O plugin adiciona um método `mask` à API jQuery que pode ser chamado em um elemento de formulário para adicionar uma máscara de entrada. O método aceita um argumento que pode ser uma string de formato ou uma função que retorna uma string de formato com base no valor atual do campo.
 
 ```javascript
-$('input[type="tel"]').mask('(00) 0000-0000');
+$('#telefone').mask('(00) 0000-0000');
 ```
+Para mascarar número de telefone com ou sem o nono dígito siga o exemplo abaixo:
 ```javascript
-$('input[type="text"]').mask(function (value) {
+$('#telefone').mask(function (value) {
+    return value.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+});
+```
+Para mascarar um campo que pode receber CPF ou CNPJ use:
+```javascript
+$('#cpf-cnpj').mask(function (value) {
     return value.length <= 11 ? '000.000.000-00' : '00.000.000/0000-00';
 });
 ```
