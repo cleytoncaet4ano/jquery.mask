@@ -6,11 +6,24 @@ O arquivo jquery.mask.js contém a função mask, que é responsável por adicio
 ## Como usar
 Para utilizar o plugin, basta incluir o arquivo jquery.mask.js em seu projeto e chamar a função mask em um seletor jQuery que identifique o campo de texto que deseja-se aplicar a máscara. Por exemplo:
 
-`$('#inputCpf').mask('000.000.000-00');`
+```javascript
+$('#inputCep').mask('00000-00');
+$('#inputCpf').mask('000.000.000-00');
+```
 
-`$('#inputCep').mask('00000-00');`
+Máscara dinâmica para telefones com e sem nono dígito
 
-Isso aplicará a máscara de CPF ao campo de texto com o ID inputCpf.
+```javascript
+$('input#telefone').mask(function (value) {
+  if (value.replace(/\D/g, '').length === 11) {]
+    // Se o número tem 11 dígitos, formata com nono dígito
+    return '(00) 00000-0000';
+  } else {
+    // Senão, formata sem nono dígito
+    return '(00) 0000-0000';
+  }
+});
+```
 
 ## Como funciona
 A função mask adiciona um ouvinte de evento de entrada (input) no elemento selecionado pelo seletor jQuery. A cada vez que o evento é acionado, a função é executada e o valor do elemento é formatado de acordo com o formato especificado.
@@ -22,6 +35,8 @@ O resultado é que o valor do elemento é formatado de acordo com o formato espe
 ## Exemplo de uso
 No arquivo index.html deste repositório, há um exemplo de uso do plugin. O código HTML contém um campo de texto para inserir um CEP, que é formatado automaticamente após o usuário inserir os cinco primeiros dígitos:
 
-`<input type="tel" id="inputCep" placeholder="00000-000">`
+```html
+<input type="tel" id="inputCep" placeholder="00000-000">
+```
 
 Para testar o exemplo, basta clonar este repositório e abrir o arquivo index.html em seu navegador.
