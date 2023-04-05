@@ -22,6 +22,6 @@ O resultado é que o valor do elemento é formatado de acordo com o formato espe
 ## Exemplo de uso
 No arquivo index.html deste repositório, há um exemplo de uso do plugin. O código HTML contém um campo de texto para inserir um CEP, que é formatado automaticamente após o usuário inserir os cinco primeiros dígitos:
 
-`<input type="text" id="inputCep" placeholder="00000-000">`
+`<input type="tel" id="inputCep" placeholder="00000-000">`
 
 Para testar o exemplo, basta clonar este repositório e abrir o arquivo index.html em seu navegador.
