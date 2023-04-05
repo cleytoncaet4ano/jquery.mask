@@ -17,6 +17,7 @@ O plugin adiciona um método `mask` à API jQuery que pode ser chamado em um ele
 
 ```javascript
 $('#cep').mask('00000-000');
+$('#data').mask('00/00/0000');
 ```
 Para mascarar número de telefone com ou sem o nono dígito siga o exemplo abaixo:
 ```javascript
