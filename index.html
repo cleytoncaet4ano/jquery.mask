@@ -7,13 +7,46 @@
 </head>
 <body>
 
-	<input type="text" id="inputCpf" name="cpf" placeholder="000.000.000-00">
+	<input type="text" id="cep" name="cep" placeholder="00000-000">
+	<input type="text" id="cpfcnpj" name="cpfcnpj" placeholder="CPF ou CNPJ">
+	<input type="text" id="telefone" name="telefone" placeholder="(00) 00000-000">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.mask.min.js"></script>
-
 	<script type="text/javascript">
-		$('#inputCpf').mask('000.000.000-00');
+	$.fn.mask = function (formatOrFunction) {
+		return this.on('input', function () {
+			let inputValue = $(this).val().replace(/\D/g, '');
+			let format = typeof formatOrFunction === 'function' ? formatOrFunction(inputValue) : formatOrFunction;
+			let formattedValue = '';
+			let j = 0;
+
+			for (let i = 0; i < format.length; i++) {
+				if (format[i] === '0' && inputValue[j]) {
+					formattedValue += inputValue[j];
+					j++;
+				} else if (format[i] !== '0') {
+					formattedValue += format[i];
+				}
+
+				if (j >= inputValue.length) {
+					break;
+				}
+			}
+
+			$(this).val(formattedValue);
+		});
+	};
+
+	$('#cep').mask('00000-000');
+
+	$('#cpfcnpj').mask(function (value) {
+		return value.length <= 11 ? '000.000.000-00' : '00.000.000/0000-00';
+	});
+
+	$('#telefone').mask(function (value) {
+		return value.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+	});
+
 	</script>
 
 </body>
